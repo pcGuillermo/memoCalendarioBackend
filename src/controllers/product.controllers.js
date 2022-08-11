@@ -1,18 +1,34 @@
 import Product from "../models/Product"
 
-export  const createProduct = (req, res)=>{
- console.log(req.body);
- res.json("create product")
+export  const createProduct = async (req, res)=>{
+  const {title, backgroundColor, start}=req.body;
+  const newProduct = new Product({title, backgroundColor, start})
+  const productSaved = await newProduct.save();
+  res.status(201).json(productSaved);
 }
-export  const getProducts = (req, res)=>{
-    
+
+export  const getProducts = async (req, res)=>{
+  const product = await Product.find();
+  res.status(201).json(product);
 }
-export  const getProductByID = (req, res)=>{
-    
+
+export  const getProductByID = async (req, res)=>{
+  const { productId } = req.params;
+  const product = await Product.findById(productId);
+  res.status(200).json(product);
 }
-export  const updateProductByID = (req, res)=>{
-    
+
+export  const updateProductByID = async (req, res)=>{
+  const { productId } = req.params;
+  const updatedProduct = await Product.findByIdAndUpdate(productId, req.body,{
+    new:true
+  });
+  res.status(200).json(updatedProduct)
 }
-export  const deleteProductByID = (req, res)=>{
+
+export  const deleteProductByID = async (req, res)=>{
+  const { productId } = req.params;
+  await Product.findByIdAndDelete(productId);
+  res.status(204).json();
     
 }
