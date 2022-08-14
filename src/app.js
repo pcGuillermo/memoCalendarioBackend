@@ -5,7 +5,7 @@ import authRoutes from './routes/auth.routes'
 import { createRoles } from './helpers/initialSetUp';
 
 const app = express();
-createRoles();
+// createRoles();
 
 // Middleswares
 app.use(express.json());
