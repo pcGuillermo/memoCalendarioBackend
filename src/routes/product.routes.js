@@ -7,9 +7,9 @@ import { Router } from "express";
 } from "../controllers/product.controllers"; 
 import { verifyToken, isAdmin } from '../middleswares';
 
- router.get('/', [verifyToken, isAdmin], getProducts);
+ router.get('/', verifyToken, getProducts);
  router.get('/:productId', verifyToken, getProductByID);
- router.post('/', verifyToken, createProduct);
+ router.post('/', createProduct);
  router.put('/:productId', verifyToken, updateProductByID);
  router.delete('/:productId', verifyToken, deleteProductByID);
 

@@ -3,7 +3,9 @@ import { Schema, model } from "mongoose";
 const productSchema = new Schema({
     title: String,
     backgroundColor: String,
-    start: String,
+    start: Date,
+    end: Date,
+    user: String
 },{
     timestamps:true,
     versionKey:false,

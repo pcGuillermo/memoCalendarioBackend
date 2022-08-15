@@ -18,11 +18,14 @@ export const signUp = async (req, res) => {
         const role = await Role.findOne({ name: 'user' })
         newUser.roles = [role._id]
     }
-
     const savedUser = await newUser.save();
-    
     const token = jwt.sign({ id: savedUser._id }, config.SECRET, { expiresIn: 50000 });
-    res.status(200).json({ token });
+    const user ={
+        username: savedUser.username,
+        email: savedUser.email,
+        id: savedUser._id,
+    }
+    res.status(200).json({ token, user });
 }
 
 export const signIn = async (req, res) => {
@@ -34,5 +37,11 @@ export const signIn = async (req, res) => {
     if(!machPassword) return res.status(401).json({message: "Invalid password"});
 
     const token = jwt.sign({ id: userFound._id }, config.SECRET, { expiresIn: 50000 });
-    res.status(200).json({token,userFound});
+
+    const user ={
+        username: userFound.username,
+        email:userFound.email,
+        id:userFound._id,
+    }
+    res.status(200).json({token,user});
 }
