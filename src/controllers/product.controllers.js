@@ -1,15 +1,17 @@
 import Product from "../models/Product"
 
 export  const createProduct = async (req, res)=>{
-  const {title, backgroundColor, start}=req.body;
-  const newProduct = new Product({title, backgroundColor, start})
+  const {title, backgroundColor, start, end, user}=req.body;
+  const newProduct = new Product({title, backgroundColor, start, end, user})
   const productSaved = await newProduct.save();
   res.status(201).json(productSaved);
 }
 
 export  const getProducts = async (req, res)=>{
-  const product = await Product.find();
+  const { userId } = req.params;
+  const product = await Product.find({ user: { $in: userId } });
   res.status(201).json(product);
+
 }
 
 export  const getProductByID = async (req, res)=>{

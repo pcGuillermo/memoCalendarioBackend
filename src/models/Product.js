@@ -5,7 +5,7 @@ const productSchema = new Schema({
     backgroundColor: String,
     start: Date,
     end: Date,
-    user: String
+    user: String,
 },{
     timestamps:true,
     versionKey:false,
